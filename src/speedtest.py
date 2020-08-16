@@ -5,7 +5,7 @@ import time
 from pathlib import Path
 
 home = str(Path.home())
-appName = 'raspi-net-speed'
+appName = 'raspi-speed-test'
 outfile = home + '/local/' + appName + '/reports/speedtest.csv'
 
 response = subprocess.Popen(
@@ -30,3 +30,4 @@ try:
 except:
     pass
 
+print('[SUCCESS] report available here', outfile)
