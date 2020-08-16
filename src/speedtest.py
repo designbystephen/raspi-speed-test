@@ -25,8 +25,8 @@ upload = upload[0].replace(',', '.')
 try:
     f = open(outfile, 'a+')
     if os.stat(outfile).st_size == 0:
-            f.write('Date,Time,Ping (ms),Download (Mbit/s),Upload (Mbit/s)\r\n')
+        f.write('Date,Time,Ping (ms),Download (Mbit/s),Upload (Mbit/s)\r\n')
+    f.write('{},{},{},{},{}\r\n'.format(time.strftime('%m/%d/%y'), time.strftime('%H:%M'), ping, download, upload))
 except:
     pass
 
-f.write('{},{},{},{},{}\r\n'.format(time.strftime('%m/%d/%y'), time.strftime('%H:%M'), ping, download, upload))
