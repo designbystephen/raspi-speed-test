@@ -7,7 +7,7 @@ REPOSITORY_URL=https://github.com/designbystephen/raspi-net-speed
 REPOSITORY=https://github.com/designbystephen/raspi-net-speed.git
 REPO_SHORTHAND=raspi-speed-test
 INSTALL_LOCATION=$HOME/local/$REPO_SHORTHAND
-CRON_FILE=/usr/bin/crontab
+CRON_FILE=$HOME/bin/crontab
 
 start_step()
 {
@@ -90,9 +90,9 @@ cat $INSTALL_LOCATION/reports/speedtest.csv
 stop_step 5
 
 # step 6 
-start_stp 6 "Scheduling cron job for every 8 hours"
+start_step 6 "Scheduling cron job for every 8 hours"
 if [ ! -f $CRON_FILE ]; then
-    touch $CRON_FILE
+    sudo touch $CRON_FILE
 fi
 crontab $CRON_FILE
 echo "0 */8 * * * python3 $INSTALL_LOCATION/src/speedtest.py" >> $CRON_FILE
