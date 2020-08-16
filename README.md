@@ -19,7 +19,7 @@ Adapted from https://pimylifeup.com/raspberry-pi-internet-speed-monitor/
 # Installation
 - You can clone the entire repository and run `./install.sh` yourself --OR--
 - Use wget to fetch and execute the install script for you
-    - `$ bash <(wget -qO - https://raw.githubusercontent.com/designbystephen/raspi-net-speed/master/install.sh)>
+    - `$ bash <(wget -qO - https://raw.githubusercontent.com/designbystephen/raspi-speed-test/master/install.sh)>`
     - You will be prompted before the script begins
     - Replace wget with suitable curl command
 
