@@ -57,10 +57,10 @@ read -n 1 -s
 
 # step 1
 start_step 1 "Validating permissions"
-if [ $EUID -ne 0 ]; then
-    echo "FAILURE: $0 is not running as root. Please rerun the install using sudo."
-    exit 2
-fi
+# if [ $EUID -ne 0 ]; then
+#     echo "FAILURE: $0 is not running as root. Please rerun the install using sudo."
+#     exit 2
+# fi
 stop_step 1
 
 # step 2
