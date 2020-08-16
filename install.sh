@@ -94,6 +94,6 @@ start_step 6 "Scheduling cron job for every 8 hours"
 if [ ! -f $CRON_FILE ]; then
     sudo touch $CRON_FILE
 fi
-crontab $CRON_FILE
-echo "0 */8 * * * python3 $INSTALL_LOCATION/src/speedtest.py" >> $CRON_FILE
+sudo crontab $CRON_FILE
+sudo echo "0 */8 * * * python3 $INSTALL_LOCATION/src/speedtest.py" >> $CRON_FILE
 stop_step 6
