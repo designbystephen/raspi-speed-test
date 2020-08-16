@@ -1,0 +1,3 @@
+REPO_SHORTHAND=raspi-speed-test
+INSTALL_LOCATION=$HOME/local/$REPO_SHORTHAND
+python3 $INSTALL_LOCATION/src/speedtest.py
