@@ -64,7 +64,7 @@ stop_step 1
 
 # step 2 
 start_step 2 "Checking out application source files"
-git clone $REPOSITORY $HOME/bin/$REPO_SHORTHAND
+git clone $REPOSITORY $INSTALL_LOCATION
 echo "Application stored @ $INSTALL_LOCATION"
 stop_step 2
 
