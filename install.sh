@@ -1,12 +1,13 @@
 #!/bin/bash
 # Install necessary files for raspi-speed-test
 
-TOTAL_STEPS=5
+TOTAL_STEPS=6
 INSTALL_SCRIPT_URL=https://raw.githubusercontent.com/designbystephen/raspi-net-speed/master/install.sh
 REPOSITORY_URL=https://github.com/designbystephen/raspi-net-speed
 REPOSITORY=https://github.com/designbystephen/raspi-net-speed.git
 REPO_SHORTHAND=raspi-speed-test
 INSTALL_LOCATION=$HOME/local/$REPO_SHORTHAND
+CRON_FILE=/usr/bin/crontab
 
 start_step()
 {
@@ -87,3 +88,12 @@ start_step 5 "Running one-time Speedtest script"
 python3 $INSTALL_LOCATION/src/speedtest.py
 cat $INSTALL_LOCATION/reports/speedtest.csv
 stop_step 5
+
+# step 6 
+start_stp 6 "Scheduling cron job for every 8 hours"
+if [ ! -f $CRON_FILE ]; then
+    touch $CRON_FILE
+fi
+crontab $CRON_FILE
+echo "0 */8 * * * python3 $INSTALL_LOCATION/src/speedtest.py" >> $CRON_FILE
+stop_step 6
