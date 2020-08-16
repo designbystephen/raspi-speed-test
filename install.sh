@@ -6,7 +6,7 @@ INSTALL_SCRIPT_URL=https://raw.githubusercontent.com/designbystephen/raspi-net-s
 REPOSITORY_URL=https://github.com/designbystephen/raspi-net-speed
 REPOSITORY=https://github.com/designbystephen/raspi-net-speed.git
 REPO_SHORTHAND=raspi-speed-test
-INSTALL_LOCATION=$HOME/bin/$REPO_SHORTHAND
+INSTALL_LOCATION=$HOME/local/$REPO_SHORTHAND
 
 start_step()
 {
@@ -55,33 +55,33 @@ EOF
 echo "Press any key to continue"
 read -n 1 -s
 
+
 # step 1
-start_step 1 "Validating permissions"
-# if [ $EUID -ne 0 ]; then
-#     echo "FAILURE: $0 is not running as root. Please rerun the install using sudo."
-#     exit 2
-# fi
+start_step 1 "Updating system packages"
+sudo apt-get -y update
+sudo apt-get -y upgrade
 stop_step 1
 
-# step 2
-start_step 2 "Updating system packages"
-sudo apt-get update
-sudo apt-get upgrade
-stop_step 2
-
-# step 3 
-start_step 3 "Checking out application source files"
+# step 2 
+start_step 2 "Checking out application source files"
 git clone $REPOSITORY $HOME/bin/$REPO_SHORTHAND
 echo "Application stored @ $INSTALL_LOCATION"
+stop_step 2
+
+# step 3
+start_step 3 "Fetching application dependencies"
+sudo apt-get -y install python3-pip
+sudo pip3 install speedtest-cli
 stop_step 3
 
 # step 4
-start_step 4 "Fetching application dependencies"
-sudo apt-get install python3-pip
-sudo pip3 install speedtest-cli
+start_step 4 "Validiating Speedtest command"
+speedtest-cli --simple > $INSTALL_LOCATION/reports/initial-speedtest.txt
+cat $INSTALL_LOCATION/reports/initial-speedtest.txt
 stop_step 4
 
 # step 5
-start_step 5 "Validiating Speedtest command"
-speedtest-cli --simple > $INSTALL_LOCATION/test-result.txt
+start_step 5 "Running one-time Speedtest script"
+python3 $INSTALL_LOCATION/src/speedtest.py
+cat $INSTALL_LOCATION/reports/speedtest.csv
 stop_step 5
