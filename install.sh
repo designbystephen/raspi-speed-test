@@ -79,7 +79,7 @@ stop_step 3
 
 # step 4
 start_step 4 "Validiating Speedtest command"
-speedtest-cli --simple > $INSTALL_LOCATION/reports/initial-speedtest.txt
+speedtest-cli --simple --timeout 30 > $INSTALL_LOCATION/reports/initial-speedtest.txt
 cat $INSTALL_LOCATION/reports/initial-speedtest.txt
 stop_step 4
 
