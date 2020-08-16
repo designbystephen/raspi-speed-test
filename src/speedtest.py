@@ -16,7 +16,7 @@ response = subprocess.Popen(
     stdout=subprocess.PIPE
 ).stdout.read().decode('utf-8')
 
-if response <= 1:
+if int(response) <= 1:
     print('[SUCCESS] Speedtest successful')
     ping = re.findall('Ping:\s(.*?)\s', response, re.MULTILINE)
     download = re.findall('Download:\s(.*?)\s', response, re.MULTILINE)
