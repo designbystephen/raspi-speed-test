@@ -25,7 +25,7 @@ if response <= 1:
     ping = ping[0].replace(',', '.')
     download = download[0].replace(',', '.')
     upload = upload[0].replace(',', '.')
-elif:
+else:
     print('[FAILURE] Speedtest failure')
     ping = -1
     download = -1
