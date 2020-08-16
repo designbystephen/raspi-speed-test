@@ -7,7 +7,7 @@ REPOSITORY_URL=https://github.com/designbystephen/raspi-net-speed
 REPOSITORY=https://github.com/designbystephen/raspi-net-speed.git
 REPO_SHORTHAND=raspi-speed-test
 INSTALL_LOCATION=$HOME/local/$REPO_SHORTHAND
-CRON_FILE=$HOME/bin/crontab
+CRON_FILE=$HOME/local/crontab
 
 start_step()
 {
