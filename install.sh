@@ -85,7 +85,7 @@ stop_step 4
 
 # step 5
 start_step 5 "Running one-time Speedtest script"
-$($SPEEDTEST_SCRIPT)
+sh $SPEEDTEST_SCRIPT
 cat $INSTALL_LOCATION/reports/speedtest.csv
 stop_step 5
 
