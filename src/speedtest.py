@@ -14,13 +14,15 @@ response = subprocess.Popen(
     '/usr/local/bin/speedtest-cli --simple --timeout 30',
     shell=True,
     stdout=subprocess.PIPE
-).stdout.read().decode('utf-8')
+)
+
+results = response.stdout.read().decode('utf-8')
 
 if int(response) <= 1:
     print('[SUCCESS] Speedtest successful')
-    ping = re.findall('Ping:\s(.*?)\s', response, re.MULTILINE)
-    download = re.findall('Download:\s(.*?)\s', response, re.MULTILINE)
-    upload = re.findall('Upload:\s(.*?)\s', response, re.MULTILINE)
+    ping = re.findall('Ping:\s(.*?)\s', results, re.MULTILINE)
+    download = re.findall('Download:\s(.*?)\s', results, re.MULTILINE)
+    upload = re.findall('Upload:\s(.*?)\s', results, re.MULTILINE)
 
     ping = ping[0].replace(',', '.')
     download = download[0].replace(',', '.')
