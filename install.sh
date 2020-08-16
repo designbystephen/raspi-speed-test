@@ -2,6 +2,7 @@
 # Install necessary files for raspi-speed-test
 
 TOTAL_STEPS=5
+INSTALL_SCRIPT_URL=https://raw.githubusercontent.com/designbystephen/raspi-net-speed/master/install.sh
 REPOSITORY_URL=https://github.com/designbystephen/raspi-net-speed
 REPOSITORY=https://github.com/designbystephen/raspi-net-speed.git
 REPO_SHORTHAND=raspi-speed-test
@@ -25,6 +26,7 @@ stop_step()
 echo "Preparing '$REPO_SHORTHAND' installation..."
 echo "Application files will be installed at $INSTALL_LOCATION"
 echo "More information can be found at https://github.com/designbystephen/raspi-net-speed"
+echo "Users are encouraged to read the install script at https://raw.githubusercontent.com/designbystephen/raspi-net-speed/master/install.sh before proceeding"
 cat << EOF 
 MIT License
 
@@ -51,7 +53,7 @@ SOFTWARE.
 EOF
 
 echo "Press any key to continue"
-read continue
+read -n 1 -s
 
 # step 1
 start_step 1 "Validating permissions"
