@@ -8,9 +8,9 @@ home = str(Path.home())
 appName = 'raspi-speed-test'
 outfile = home + '/local/' + appName + '/reports/speedtest.csv'
 
-print('[INFO] Attempting Speedtest')
-
 def get_speedtest_results():
+    print('[INFO] Attempting Speedtest')
+
     ping = -1
     download = -1
     upload = -1
@@ -21,6 +21,7 @@ def get_speedtest_results():
             shell=True,
             stdout=subprocess.PIPE
         )
+
         results = response.stdout.read().decode('utf-8')
 
         if int(response.returncode or 0) <= 1:
@@ -40,13 +41,13 @@ def get_speedtest_results():
         return ping, download, upload
 
 try:
-    print('[INFO] Writing results to csv file')
+    ping, download, upload = get_speedtest_results()
+
+    print('[INFO] Writing results to file')
 
     f = open(outfile, 'a+')
     if os.stat(outfile).st_size == 0:
         f.write('Date,Time,Ping (ms),Download (Mbit/s),Upload (Mbit/s)\r\n')
-
-    ping, download, upload = get_speedtest_results()
 
     f.write('{},{},{},{},{}\r\n'.format(time.strftime('%m/%d/%y'), time.strftime('%H:%M'), ping, download, upload))
 
@@ -54,4 +55,4 @@ try:
 except Exception as e:
     print('[FAILURE] Error writting report results to file', e)
 finally:
-    print('[INFO] Report available @ ', outfile)
+    print('[INFO] Report available @', outfile)
