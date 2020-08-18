@@ -92,7 +92,7 @@ cat $INSTALL_LOCATION/reports/speedtest.csv
 stop_step 5
 
 # step 6 
-SCRIPT_CONTENTS = cat $( << 'EOF'
+SCRIPT_CONTENTS = $(cat << 'EOF'
 # Run speedtest every h hours, replace */h with desired hourly schedule
 # 0 */h * * * sh $SPEEDTEST_SCRIPT
 
