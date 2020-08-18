@@ -96,6 +96,6 @@ cat $INSTALL_LOCATION/reports/speedtest.csv
 stop_step 5
 
 # step 6 
-start_step 6 "Scheduling cron job for every 8 hours"
-! (crontab -l | grep -q $SPEEDTEST_SCRIPT) && (crontab -l; echo 'sh 0 */$HOURS * * * sh $SPEEDTEST_SCRIPT') | crontab -
+start_step 6 "Scheduling cron job for every $HOURS hours"
+! (crontab -l | grep -q $SPEEDTEST_SCRIPT) && (crontab -l; echo "0 */$HOURS * * * $SPEEDTEST_SCRIPT") | crontab -
 stop_step 6
