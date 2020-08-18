@@ -102,5 +102,5 @@ EOF
 )
 
 start_step 6 "Scheduling cron job for every 8 hours"
-! (crontab -l | grep -q $SPEEDTEST_SCRIPT) && (crontab -l; echo $SCRIPT_CONTENTS) | crontab -
+! (crontab -l | grep -q $SPEEDTEST_SCRIPT) && (crontab -l; echo '$SCRIPT_CONTENTS') | crontab -
 stop_step 6

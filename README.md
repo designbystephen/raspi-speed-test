@@ -68,7 +68,7 @@ Date,Time,Ping (ms),Download (Mbit/s),Upload (Mbit/s)
 - Speedtest report will use `-1` values to indicate timeout and other network / script failures
 
 ## Speedtest Schedule
-- During installation the speedtest script will be scheduled to run every **8 hours**
+- During installation the Speedtest script will be scheduled to run every **8 hours**
 - You can change this at a later time by using `crontab -e` and replacing `*/h` to the desired hourly schedule in the example below
  
 ```
