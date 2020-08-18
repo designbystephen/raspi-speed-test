@@ -8,12 +8,8 @@ REPOSITORY=https://github.com/designbystephen/raspi-speed-test.git
 REPO_SHORTHAND=raspi-speed-test
 INSTALL_LOCATION=$HOME/local/$REPO_SHORTHAND
 SPEEDTEST_SCRIPT=$INSTALL_LOCATION/speedtest.sh
-
-SCRIPT_CONTENTS = "# Run speedtest every h hours, replace */h with desired hourly schedule
-# 0 */h * * * sh $SPEEDTEST_SCRIPT
-
-# Run speedtest every 8 hours
-0 */8 * * * sh $SPEEDTEST_SCRIPT"
+CDIR = $PWD
+HOURS = 8
 
 start_step()
 {
@@ -80,7 +76,9 @@ stop_step 2
 # step 3 
 start_step 3 "Checking out application source files"
 git clone $REPOSITORY $INSTALL_LOCATION
+cd $INSTALL_LOCATION
 git checkout . # clear any existing changes to local
+cd $CDIR
 mkdir $INSTALL_LOCATION/reports
 echo "Application stored @ $INSTALL_LOCATION"
 stop_step 2
@@ -99,5 +97,5 @@ stop_step 5
 
 # step 6 
 start_step 6 "Scheduling cron job for every 8 hours"
-! (crontab -l | grep -q $SPEEDTEST_SCRIPT) && (crontab -l; echo '$SCRIPT_CONTENTS') | crontab -
+! (crontab -l | grep -q $SPEEDTEST_SCRIPT) && (crontab -l; echo 'sh 0 */$HOURS * * * sh $SPEEDTEST_SCRIPT') | crontab -
 stop_step 6
