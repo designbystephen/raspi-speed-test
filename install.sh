@@ -8,6 +8,8 @@ REPOSITORY=https://github.com/designbystephen/raspi-speed-test.git
 REPO_SHORTHAND=raspi-speed-test
 INSTALL_LOCATION=$HOME/local/$REPO_SHORTHAND
 SPEEDTEST_SCRIPT=$INSTALL_LOCATION/speedtest.sh
+CDIR=$PWD
+PER_HOUR=8 
 
 start_step()
 {
@@ -65,19 +67,21 @@ sudo apt-get -y update
 sudo apt-get -y upgrade
 stop_step 1
 
-# step 2 
-start_step 2 "Checking out application source files"
+# step 2
+start_step 2 "Fetching application dependencies"
+sudo apt-get -y install python3-pip git 
+sudo pip3 install speedtest-cli
+stop_step 2
+
+# step 3 
+start_step 3 "Checking out application source files"
 git clone $REPOSITORY $INSTALL_LOCATION
+cd $INSTALL_LOCATION
 git checkout . # clear any existing changes to local
+cd $CDIR
 mkdir $INSTALL_LOCATION/reports
 echo "Application stored @ $INSTALL_LOCATION"
 stop_step 2
-
-# step 3
-start_step 3 "Fetching application dependencies"
-sudo apt-get -y install python3-pip
-sudo pip3 install speedtest-cli
-stop_step 3
 
 # step 4
 start_step 4 "Validiating Speedtest command"
@@ -92,6 +96,6 @@ cat $INSTALL_LOCATION/reports/speedtest.csv
 stop_step 5
 
 # step 6 
-start_step 6 "Scheduling cron job for every 8 hours"
-! (crontab -l | grep -q $SPEEDTEST_SCRIPT) && (crontab -l; echo "0 */8 * * * $SPEEDTEST_SCRIPT") | crontab -
+start_step 6 "Scheduling cron job for every $PER_HOUR hours"
+! (crontab -l | grep -q $SPEEDTEST_SCRIPT) && (crontab -l; echo "0 */$PER_HOUR * * * sh $SPEEDTEST_SCRIPT") | crontab -
 stop_step 6
