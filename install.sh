@@ -8,8 +8,8 @@ REPOSITORY=https://github.com/designbystephen/raspi-speed-test.git
 REPO_SHORTHAND=raspi-speed-test
 INSTALL_LOCATION=$HOME/local/$REPO_SHORTHAND
 SPEEDTEST_SCRIPT=$INSTALL_LOCATION/speedtest.sh
-CDIR = $PWD
-HOURS = "8"
+CDIR=$PWD
+PER_HOUR=8 
 
 start_step()
 {
@@ -96,6 +96,6 @@ cat $INSTALL_LOCATION/reports/speedtest.csv
 stop_step 5
 
 # step 6 
-start_step 6 "Scheduling cron job for every $HOURS hours"
-! (crontab -l | grep -q $SPEEDTEST_SCRIPT) && (crontab -l; echo "0 */$HOURS * * * $SPEEDTEST_SCRIPT") | crontab -
+start_step 6 "Scheduling cron job for every $PER_HOUR hours"
+! (crontab -l | grep -q $SPEEDTEST_SCRIPT) && (crontab -l; echo "0 */$PER_HOUR * * * $SPEEDTEST_SCRIPT") | crontab -
 stop_step 6
