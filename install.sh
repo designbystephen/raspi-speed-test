@@ -92,14 +92,11 @@ cat $INSTALL_LOCATION/reports/speedtest.csv
 stop_step 5
 
 # step 6 
-SCRIPT_CONTENTS = $(cat << 'EOF'
-# Run speedtest every h hours, replace */h with desired hourly schedule
+SCRIPT_CONTENTS = "# Run speedtest every h hours, replace */h with desired hourly schedule
 # 0 */h * * * sh $SPEEDTEST_SCRIPT
 
 # Run speedtest every 8 hours
-0 */8 * * * sh $SPEEDTEST_SCRIPT
-EOF
-)
+0 */8 * * * sh $SPEEDTEST_SCRIPT"
 
 start_step 6 "Scheduling cron job for every 8 hours"
 ! (crontab -l | grep -q $SPEEDTEST_SCRIPT) && (crontab -l; echo '$SCRIPT_CONTENTS') | crontab -
