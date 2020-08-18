@@ -97,7 +97,7 @@ SCRIPT_CONTENTS = $(cat << 'EOF'
 # 0 */h * * * sh $SPEEDTEST_SCRIPT
 
 # Run speedtest every 8 hours
-0 */8 * * * sh $SPEEDTEST_SCRIPT
+0 */8 * * * sh $SPEEDTEST_SCRIPT''
 EOF
 )
 
