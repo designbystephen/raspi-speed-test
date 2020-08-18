@@ -9,7 +9,7 @@ REPO_SHORTHAND=raspi-speed-test
 INSTALL_LOCATION=$HOME/local/$REPO_SHORTHAND
 SPEEDTEST_SCRIPT=$INSTALL_LOCATION/speedtest.sh
 CDIR = $PWD
-HOURS = '8'
+HOURS = "8"
 
 start_step()
 {
