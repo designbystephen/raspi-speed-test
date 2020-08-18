@@ -65,19 +65,19 @@ sudo apt-get -y update
 sudo apt-get -y upgrade
 stop_step 1
 
-# step 2 
-start_step 2 "Checking out application source files"
+# step 2
+start_step 2 "Fetching application dependencies"
+sudo apt-get -y install python3-pip git 
+sudo pip3 install speedtest-cli
+stop_step 2
+
+# step 3 
+start_step 3 "Checking out application source files"
 git clone $REPOSITORY $INSTALL_LOCATION
 git checkout . # clear any existing changes to local
 mkdir $INSTALL_LOCATION/reports
 echo "Application stored @ $INSTALL_LOCATION"
 stop_step 2
-
-# step 3
-start_step 3 "Fetching application dependencies"
-sudo apt-get -y install python3-pip
-sudo pip3 install speedtest-cli
-stop_step 3
 
 # step 4
 start_step 4 "Validiating Speedtest command"
@@ -92,6 +92,15 @@ cat $INSTALL_LOCATION/reports/speedtest.csv
 stop_step 5
 
 # step 6 
+SCRIPT_CONTENTS = cat $( << 'EOF'
+# Run speedtest every h hours, replace */h with desired hourly schedule
+# 0 */h * * * sh $SPEEDTEST_SCRIPT
+
+# Run speedtest every 8 hours
+0 */8 * * * sh $SPEEDTEST_SCRIPT
+EOF
+)
+
 start_step 6 "Scheduling cron job for every 8 hours"
-! (crontab -l | grep -q $SPEEDTEST_SCRIPT) && (crontab -l; echo "0 */8 * * * $SPEEDTEST_SCRIPT") | crontab -
+! (crontab -l | grep -q $SPEEDTEST_SCRIPT) && (crontab -l; echo $SCRIPT_CONTENTS) | crontab -
 stop_step 6
