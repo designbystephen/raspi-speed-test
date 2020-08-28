@@ -3,12 +3,15 @@ import re
 import subprocess
 import time
 from pathlib import Path
+from sys import argv
+import upload
 
 home = str(Path.home())
 appName = 'raspi-speed-test'
 outfile = home + '/local/' + appName + '/reports/speedtest.csv'
+willUpload = str(argv[0])
 
-def get_speedtest_results():
+def getSpeedTestResults():
     print('[INFO] Attempting Speedtest')
 
     ping = -1
@@ -36,12 +39,21 @@ def get_speedtest_results():
         else:
             print('[FAILURE] Speedtest failure')
     except Exception as e:
-        print('[FAILURE] Speedtest CLI failure', e)
+        print('[FAILURE] Speedtest CLI failure. {}', str(e))
     finally:
         return ping, download, upload
 
+def uploadSpeedTest():
+    fileId = upload.sendToGoogleDrive(
+        outfile,
+        'text/csv',
+        {'name': 'speedtest.csv'}
+    )
+
+    return fileId
+
 try:
-    ping, download, upload = get_speedtest_results()
+    ping, download, upload = getSpeedTestResults()
 
     print('[INFO] Writing results to file')
 
@@ -49,10 +61,16 @@ try:
     if os.stat(outfile).st_size == 0:
         f.write('Date,Time,Ping (ms),Download (Mbit/s),Upload (Mbit/s)\r\n')
 
-    f.write('{},{},{},{},{}\r\n'.format(time.strftime('%m/%d/%y'), time.strftime('%H:%M'), ping, download, upload))
+    f.write('{},{},{},{},{}\r\n'.format(time.strftime('%m/%d/%y') , time.strftime('%H:%M'), ping, download, upload))
 
     print('[SUCCESS] Report written to file ')
-except Exception as e:
-    print('[FAILURE] Error writting report results to file', e)
-finally:
     print('[INFO] Report available @', outfile)
+except Exception as e:
+    print('[FAILURE] Error writting report results to file. {}', str(e))
+
+if willUpload.lower() == 'true':
+    try:
+        fileId = uploadSpeedTest()
+    except Exception as e:
+        print('[FAILURE] Error uploading SpeedTest results. {}', str(e))
+

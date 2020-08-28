@@ -130,3 +130,7 @@ dmypy.json
 
 # Test Reports
 reports/
+
+# Credential Files
+credentials.json
+*.pickle

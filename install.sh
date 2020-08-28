@@ -70,7 +70,7 @@ stop_step 1
 # step 2
 start_step 2 "Fetching application dependencies"
 sudo apt-get -y install python3-pip git 
-sudo pip3 install speedtest-cli
+sudo pip3 install --upgrade speedtest-cli google-api-python-client google-auth-httplib2 google-auth-oauthlib
 stop_step 2
 
 # step 3 
