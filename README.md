@@ -23,18 +23,22 @@ Adapted from https://pimylifeup.com/raspberry-pi-internet-speed-monitor/
 - **NOTE: Some adaptations may be necessary for this to work with other nix distros**
 
 ## Dependencies
-  The following are Installed via `./install.sh`:
+  ***NOTE:** The following are Installed via `./install.sh`:
 - git
 - python3
 - speedtest-cli
 - python3-pip
 
 # Installation
-- **Recommended:** Use wget to fetch and execute the install script for you
+- **Recommended:** Use curl or wget to fetch and execute the install script for you
     - `$ bash <(wget -qO - https://raw.githubusercontent.com/designbystephen/raspi-speed-test/master/install.sh)`
-    - You will be prompted before the script begins
-    - Replace wget with suitable curl command
-- You can clone the entire repository and run `$ sh ./install.sh` yourself --OR--
+      - You will be prompted before the script begins
+    - `$curl -sSL https://raw.githubusercontent.com/designbystephen/raspi-speed-test/master/install.sh | bash`
+      - You will not be prompted before the script begins
+- **Alternative:** You can clone the entire repository and run `$ sh ./install.sh` yourself
+  - `$ git clone https://github.com/designbystephen/raspi-speed-test.git raspi-speed-test`
+  - `$ cd raspi-speed-test`
+  - `$ sh ./install.sh`
 
 ## Install Location
 - This application is installed here: `~/local/raspi-speed-test`
